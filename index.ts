@@ -19,7 +19,6 @@ app.use(express.json());
 
 app.get('/', async (req: Request, res: Response ) => {
     res.send('Hello from backend');
-    res.send('your valuablity thing is selfrespect')
 });
 
 app.listen(PORT, () => {
