@@ -9,20 +9,24 @@ configDotenv();
 const URI_fromenv = process.env.MONGODB_URI;
 console.log(URI_fromenv);
 
+// connect to mongodb 
+export const connectToDb = async () => {
+    const URI_fromenv = process.env.MONGODB_URI; 
+    if(!URI_fromenv) {
+        throw new Error(
+            'Database connection URI is not defined in environment variables.'
+        );
+    };
+    
+};
+
 app.get('/', async (req: Request, res: Response) => {
     res.send('Hello world!');
 }); 
 
 app.listen(PORT, () => {
     console.log(`Server is Running on http://localhost:${PORT}`);
-});
-
-
-  
-
-
-
-
+}); 
 
 
 
