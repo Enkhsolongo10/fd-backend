@@ -3,15 +3,18 @@ import express, { Request, Response } from 'express'; //end bga express-iig can'
 import {Collection, connect, model, Schema} from "mongoose";
 
 const mongoose = require('mongoose');
+const cors = require('cors');
 const PORT = 8000;
 const app = express();
+
+app.use(cors());
 app.use(express.json());
 
 configDotenv();
 const URI_fromenv = process.env.MONGODB_URI;
 console.log(URI_fromenv);
 
-// connect to mongodb 
+// CONNECT TO MONGO DB 
 export const connectToDb = async () => {
     const URI_fromenv = process.env.MONGODB_URI; 
     if(!URI_fromenv) {
@@ -30,6 +33,7 @@ export const connectToDb = async () => {
 };
 connectToDb(); 
 
+// MODEL, SCHEMA, CRUD
 const FOOD_CATEGORY_SCHEMA = new Schema(
     {
         categoryName: String,
@@ -45,22 +49,35 @@ app.get('/food-category/', async (req: Request, res: Response) => {
 });
 
 app.get('/food-category/:id', async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const item = await FoodCategoryModel.findById(id);
+    res.json(item);
 });
 
-app.get('/create', async (req: Request, res: Response) => {
-    //create new food category 
+app.post('/food-category', async (req: Request, res: Response) => {
     const newItem = await FoodCategoryModel.create({
-        categoryName: 'fast food'
+        categoryName: req.body.categoryName,
     });
-
-    res.send({
-        message: 'New food category created successfully.',
-        newItem
-    });
+    res.json({newItem, message:"nemegdlee"}); //neg negeeree 
 });
 
+app.delete('/food-category/:id', async (req: Request, res: Response) => {
+    const deletedItem = await FoodCategoryModel.findByIdAndDelete(req.params.id);
+    res.json(deletedItem);
+});
 
+app.put('/food-category/:id', async (req: Request, res: Response) => {
+    const updatedItem = await FoodCategoryModel.findByIdAndUpdate(
+        req.params.id,
+        {
+        categoryName: req.body.categoryName,
+        },
+        { new: true }
+    );
+    res.json(updatedItem);
+});
 
 app.listen(PORT, () => {
     console.log(`Server is Running on http://localhost:${PORT}`);
 }); 
+``
