@@ -13,8 +13,8 @@ app.use(cors());
 app.use(express.json());
 
 configDotenv();
+
 const URI_fromenv = process.env.MONGODB_URI;
-console.log(URI_fromenv);
 
 export const connectToDb = async () => {
     const URI_fromenv = process.env.MONGODB_URI; 
@@ -32,7 +32,7 @@ export const connectToDb = async () => {
         process.exit(1); 
     };
 };
-connectToDb(); 
+connectToDb();
 
 app.use('/food-category/', foodCategoryRouter);
 app.use('/food/', foodRouter); 

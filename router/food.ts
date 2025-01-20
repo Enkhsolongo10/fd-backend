@@ -4,7 +4,7 @@ import { FoodModel } from "../models/food";
 
 export const foodRouter = Router();
 
-foodRouter.get('/:id', async (req: Request, res: Response) => {
+foodRouter.get('/', async (req: Request, res: Response) => {
     const allData = await FoodModel.find(); 
     res.json(allData);
 });
@@ -16,9 +16,8 @@ foodRouter.get('/:id', async (req: Request, res: Response) => {
 });
 
 foodRouter.post('/', async (req: Request, res: Response) => {
-    const newItem = await FoodModel.create({
-        categoryName: req.body.categoryName,
-    });
+    const {category, foodName, image, price, ingredients } = req.body
+    const newItem = await FoodModel.create({category, foodName, image, price, ingredients } );
     res.json({newItem, message:"nemegdlee"});
 });
 
