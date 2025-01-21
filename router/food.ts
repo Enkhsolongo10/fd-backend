@@ -5,8 +5,8 @@ import { FoodModel } from "../models/food";
 export const foodRouter = Router();
 
 foodRouter.get('/', async (req: Request, res: Response) => {
-    const allData = await FoodModel.find(); 
-    res.json(allData);
+    const items = await FoodModel.find(); 
+    res.json(items);
 });
 
 foodRouter.get('/:id', async (req: Request, res: Response) => {
