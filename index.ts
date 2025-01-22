@@ -34,8 +34,8 @@ export const connectToDb = async () => {
 };
 connectToDb();
 
-app.use('/food-category/', foodCategoryRouter);
-app.use('/food/', foodRouter); 
+app.use('/food-category', foodCategoryRouter);
+app.use('/food', foodRouter); 
 
 app.listen(PORT, () => {
     console.log(`Server is Running on http://localhost:${PORT}`);

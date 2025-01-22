@@ -1,12 +1,11 @@
 import { Router, Request, Response } from "express";
 import { FoodModel } from "../models/food";
 
-
 export const foodRouter = Router();
 
 foodRouter.get('/', async (req: Request, res: Response) => {
     const items = await FoodModel.find(); 
-    res.json(items);
+    res.json(items);       
 });
 
 foodRouter.get('/:id', async (req: Request, res: Response) => {
@@ -14,11 +13,20 @@ foodRouter.get('/:id', async (req: Request, res: Response) => {
     const item = await FoodModel.findById(id);
     res.json(item);
 });
+foodRouter.get('/a/:category', async (req: Request, res: Response) => {
+    const params = req.params;
+    const result = await FoodModel.find(params);
+    res.json(result);
+});
 
 foodRouter.post('/', async (req: Request, res: Response) => {
-    const {category, foodName, image, price, ingredients } = req.body
-    const newItem = await FoodModel.create({category, foodName, image, price, ingredients } );
+    const body = req.body
+try{
+    const newItem = await FoodModel.create(body);
     res.json({newItem, message:"nemegdlee"});
+}catch(e){
+    console.error(e, "aldaa")
+}
 });
 
 foodRouter.delete('/:id', async (req: Request, res: Response) => {
