@@ -8,11 +8,12 @@ const FOOD_SCHEMA = new Schema(
         ingredients: String,
         image: String,
         price: String,
+        
     },
     {timestamps: true}
 );
 
-const FoodModel = models['Food'] || model(
+const FoodModel = models ['Food'] || model(
     'Food', 
     FOOD_SCHEMA, 
 );
