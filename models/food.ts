@@ -4,11 +4,13 @@ import { FoodCategoryModel } from "./food-category";
 const FOOD_SCHEMA = new Schema(
     {
         name: String,
-        category: Schema.Types.ObjectId,
         ingredients: String,
         image: String,
         price: String,
-        
+        category: {
+            type: Schema.Types.ObjectId,
+            ref: "FoodCategory"
+        },
     },
     {timestamps: true}
 );

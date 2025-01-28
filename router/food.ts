@@ -19,9 +19,6 @@ foodRouter.get('/', async (req: Request, res: Response) => {
         const allFoods = await FoodModel.find();
         res.json(allFoods);
     }
- 
-    // const items = await FoodModel.find(); 
-    // res.json(items);      
 });
 
 foodRouter.get('/:id', async (req: Request, res: Response) => {
@@ -30,21 +27,23 @@ foodRouter.get('/:id', async (req: Request, res: Response) => {
     res.json(item);
 });
 
-// foodRouter.get('/:category', async (req: Request, res: Response) => {
-//     const params = req.params;
-//     const result = await FoodModel.find(params);
-//     res.json(result);
-// });
-
 foodRouter.post('/', async (req: Request, res: Response) => {
-    const body = req.body
-    
-try{
-    const newItem = await FoodModel.create(body);
-    res.json({newItem, message:"nemegdlee"});
-}catch(e){
-    console.error(e, "aldaa")
-}
+    console.log(req.body)
+    const {name, category, image, price, ingredients} = req.body;
+    const newFood = await FoodModel.create({
+        category, 
+        name,
+        image,
+        price,
+        ingredients
+    });
+    res.json(newFood);
+    // try{
+    //     const newItem = await FoodModel.create(body);
+    //     res.json({newItem, message:"nemegdlee"});
+    // }catch(e){
+    //     console.error(e, "aldaa")
+    // }
 });
 
 foodRouter.delete('/:id', async (req: Request, res: Response) => {
