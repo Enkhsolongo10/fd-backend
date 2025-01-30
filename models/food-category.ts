@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { model, models, Schema } from "mongoose";
 
 const FOOD_CATEGORY_SCHEMA = new Schema(
     {
@@ -7,10 +7,8 @@ const FOOD_CATEGORY_SCHEMA = new Schema(
     {timestamps: true}
 );
 
-const FoodCategoryModel = model(
-    'Food-category', 
-    FOOD_CATEGORY_SCHEMA, 
-    'food-category'
-);
+const FoodCategoryModel = 
+    models['FoodCategory'] ||
+    model('FoodCategor', FOOD_CATEGORY_SCHEMA, 'food-category');
 
 export { FoodCategoryModel };

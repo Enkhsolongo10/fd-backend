@@ -4,21 +4,7 @@ import { FoodModel } from "../models/food";
 export const foodRouter = Router();
 
 foodRouter.get('/', async (req: Request, res: Response) => {
-    const categoryId = req.query.categoryId as string;
-
-    if(categoryId) {
-        try {
-            const categoryFoods = await FoodModel.find({
-                category: categoryId, 
-            });
-            res.json(categoryFoods);
-        } catch (error) {
-            res.status(500).json({error});
-        }
-    } else {
-        const allFoods = await FoodModel.find();
-        res.json(allFoods);
-    }
+    const items = await FoodModel.find({}).populate('category'); 
 });
 
 foodRouter.get('/:id', async (req: Request, res: Response) => {
@@ -38,12 +24,6 @@ foodRouter.post('/', async (req: Request, res: Response) => {
         ingredients
     });
     res.json(newFood);
-    // try{
-    //     const newItem = await FoodModel.create(body);
-    //     res.json({newItem, message:"nemegdlee"});
-    // }catch(e){
-    //     console.error(e, "aldaa")
-    // }
 });
 
 foodRouter.delete('/:id', async (req: Request, res: Response) => {
@@ -55,9 +35,22 @@ foodRouter.put('/:id', async (req: Request, res: Response) => {
     const updatedItem = await FoodModel.findByIdAndUpdate(
         req.params.id,
         {
-        categoryName: req.body.categoryName,
+            categoryName: req.body.categoryName,
         },
         { new: true }
     );
     res.json(updatedItem);
 });
+
+
+
+
+
+
+// create dr bsn code shuu 
+// try{
+//     const newItem = await FoodModel.create(body);
+//     res.json({newItem, message:"nemegdlee"});
+// }catch(e){
+//     console.error(e, "aldaa")
+// }

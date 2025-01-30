@@ -3,21 +3,20 @@ import { FoodCategoryModel } from "./food-category";
 
 const FOOD_SCHEMA = new Schema(
     {
-        name: String,
+        foodName: String,
+        price: Number,
         ingredients: String,
-        image: String,
-        price: String,
         category: {
             type: Schema.Types.ObjectId,
-            ref: "FoodCategory"
+            ref: 'FoodCategory',
         },
+        image: String,
     },
     {timestamps: true}
 );
 
-const FoodModel = models ['Food'] || model(
-    'Food', 
-    FOOD_SCHEMA, 
-);
+const FoodModel = 
+models['Foods'] || 
+model('Food', FOOD_SCHEMA, 'foods');
 
 export { FoodModel };
