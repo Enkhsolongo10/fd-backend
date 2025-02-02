@@ -6,10 +6,10 @@ const FOOD_SCHEMA = new Schema(
         foodName: String,
         price: Number,
         ingredients: String,
-        category: {
-            type: Schema.Types.ObjectId,
-            ref: 'FoodCategory',
-        },
+        // category: {
+        //     type: Schema.Types.ObjectId,
+        //     ref: 'FoodCategory',
+        // },
         image: String,
     },
     {timestamps: true}

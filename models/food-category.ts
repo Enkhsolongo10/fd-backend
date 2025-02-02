@@ -9,6 +9,6 @@ const FOOD_CATEGORY_SCHEMA = new Schema(
 
 const FoodCategoryModel = 
     models['FoodCategory'] ||
-    model('FoodCategor', FOOD_CATEGORY_SCHEMA, 'food-category');
+    model('FoodCategory', FOOD_CATEGORY_SCHEMA, 'food-category');
 
 export { FoodCategoryModel };
