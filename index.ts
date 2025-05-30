@@ -14,8 +14,6 @@ app.use(express.json());
 
 configDotenv();
 
-// const URI_fromenv = process.env.MONGODB_URI;
-
 export const connectToDb = async () => {
     const URI_fromenv = process.env.MONGODB_URI; 
     if(!URI_fromenv) {

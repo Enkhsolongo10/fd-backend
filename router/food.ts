@@ -41,16 +41,3 @@ foodRouter.put('/:id', async (req: Request, res: Response) => {
     );
     res.json(updatedItem);
 });
-
-
-
-
-
-
-// create dr bsn code shuu 
-// try{
-//     const newItem = await FoodModel.create(body);
-//     res.json({newItem, message:"nemegdlee"});
-// }catch(e){
-//     console.error(e, "aldaa")
-// }
