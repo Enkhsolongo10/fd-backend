@@ -1,18 +1,19 @@
 import { configDotenv } from "dotenv";
+configDotenv();  // Load .env variables first
+
 import express from 'express'; 
-import {Collection, connect, model, Schema} from "mongoose";
-import { foodCategoryRouter } from "./router/food-category"; 
-import { foodRouter } from "./router/food";
+import { foodRouter } from "./router/admin/food";
+import { foodCategoryRouter } from "./router/admin/food-category";
 
 const mongoose = require('mongoose');
 const cors = require('cors');
-const PORT = 8000;
+
+const PORT = process.env.PORT || 8000;
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-
-configDotenv();
 
 export const connectToDb = async () => {
     const URI_fromenv = process.env.MONGODB_URI; 
@@ -30,10 +31,11 @@ export const connectToDb = async () => {
         process.exit(1); 
     };
 };
+
 connectToDb();
 
-app.use('/food-category', foodCategoryRouter);
-app.use('/food', foodRouter); 
+app.use('/admin/category', foodCategoryRouter);
+app.use('/admin/food', foodRouter); 
 
 app.listen(PORT, () => {
     console.log(`Server is Running on http://localhost:${PORT}`);
