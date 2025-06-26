@@ -34,7 +34,7 @@ export const connectToDb = async () => {
 
 connectToDb();
 
-app.use('/admin/category', foodCategoryRouter);
+app.use('/admin/food-category', foodCategoryRouter);
 app.use('/admin/food', foodRouter); 
 
 app.listen(PORT, () => {
