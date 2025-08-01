@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { FoodModel } from "../../models/admin/food";
+import { FoodModel } from "../models/models";
 
 export const foodRouter = Router();
 
@@ -23,6 +23,19 @@ foodRouter.post('/', async (req: Request, res: Response) => {
   }
 });
 
+foodRouter.delete('/:id', (async (req: Request, res: Response): Promise<void> => {
+  try {
+    const deletedCategory = await FoodModel.findByIdAndDelete(req.params.id);
+    if (!deletedCategory) {
+      res.status(404).json({ message: 'food not found' });
+      return;
+    }
+    res.json({ message: 'food deleted successfully', deletedCategory });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to delete food' });
+  }
+}) as import('express').RequestHandler);
+
 foodRouter.put('/:id', async (req: Request, res: Response): Promise<void> => {
   try {
     const updatedCategory = await FoodModel.findByIdAndUpdate(
@@ -39,16 +52,3 @@ foodRouter.put('/:id', async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ message: 'Failed to update food' });
   }
 });
-
-foodRouter.delete('/:id', (async (req: Request, res: Response): Promise<void> => {
-  try {
-    const deletedCategory = await FoodModel.findByIdAndDelete(req.params.id);
-    if (!deletedCategory) {
-      res.status(404).json({ message: 'food not found' });
-      return;
-    }
-    res.json({ message: 'food deleted successfully', deletedCategory });
-  } catch (error) {
-    res.status(500).json({ message: 'Failed to delete food' });
-  }
-}) as import('express').RequestHandler);
